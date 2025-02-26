@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../logo.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Intense Driving</title>
+</head>
+<body>
+    <!-- Botón para volver al menú -->
+    <button class="back-to-menu" onclick="window.location.href='Index.html'">Volver al Menú</button>
+    
+    <div class="carGame">
+        <div class="score"></div>
+        <div class="startScreen">
+            <h1>Intense Driving</h1>
+            <p>Presione aquí para comenzar<br> Si chocas pierdes ...</p>
+        </div>
+        <div class="gameArea"></div>
+    </div>
+    
+    <audio id="backgroundMusic" loop>
+        <source src="audio1.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+    <audio id="crashSound">
+        <source src="crash.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+    
+    <!-- Botón para pausar el juego -->
+    <button class="pause-button" onclick="togglePause()">Pausar</button>
+    
+    <script src="script.js"></script>
+</body>
+</html>

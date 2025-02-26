@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="leaderboard.css"> 
+    
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.jpg" alt="Logo">
+        </div>
+        <div class="game-title">
+            Leaderboard
+        </div>
+        <div class="nav-links">
+            <button onclick="window.location.href='Index.html'">Volver al Menú</button>
+            <!-- Botón para iniciar la música -->
+            <button id="startMusicButton" onclick="startMusic()">Música</button>
+        </div>
+    </nav>
+    <br><br><br><br><br><br>
+    <h1>Leaderboard</h1>
+    
+    <!-- Contenedores para los tres primeros lugares -->
+    <div class="top-places">
+        
+        <div class="place-card" id="second-place">
+            <h2>2do Lugar</h2>
+            <p class="name"></p>
+            <p class="score"></p>
+        </div>
+        <div class="place-card" id="first-place">
+            <h2>1er Lugar</h2>
+            <p class="name"></p>
+            <p class="score"></p>
+        </div>
+        <div class="place-card" id="third-place">
+            <h2>3er Lugar</h2>
+            <p class="name"></p>
+            <p class="score"></p>
+        </div>
+        <div class="place-card" id="third-place">
+            <h2>4to Lugar</h2>
+            <p class="name"></p>
+            <p class="score"></p>
+        </div>
+    </div>
+
+    <table id="leaderboard">
+        <thead>
+            <tr>
+                <th>Posición</th>
+                <th>Nombre</th>
+                <th>Puntaje</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se insertarán aquí dinámicamente -->
+        </tbody>
+    </table>
+    <!-- Añadir el elemento de audio -->
+    <audio id="music3" src="leaderboard.mp3" preload="auto"></audio>
+
+    <script src="scriptl.js"></script>
+</body>
+</html>

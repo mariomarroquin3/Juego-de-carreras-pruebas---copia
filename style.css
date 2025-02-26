@@ -1,0 +1,156 @@
+/* Reset de márgenes y padding */
+*{
+    margin:0;
+    padding:0;
+}
+
+/* Ocultar elementos */
+.hide{
+    display:none;
+}
+
+/* Estilo para el coche del jugador */
+.car {
+    height: 120px;
+    width: 50px;
+    position: absolute;
+    bottom: 120px;
+    border-radius: 10px;
+}
+
+/* Estilo para las monedas */
+.coin {
+    position: absolute;
+    background-color: gold;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Estilo para el área del juego */
+.carGame{
+    width:100%;
+    height:100vw;
+    background: rgb(92, 96, 92);
+    /*background: url(back.jpg);*/
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Asegurar que está detrás del juego */
+}
+
+/* Estilo para las líneas de la carretera */
+.lines{
+    width:10px;
+    height:100px;
+    background: white;
+    position:absolute;
+    margin-left:190px;
+}
+
+/* Estilo para el área de juego */
+.gameArea{
+    height:100vh;
+    width:400px;
+    background: #2c3456;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+    border-right:7px dashed #c8d6e5;
+    border-left:7px dashed #c8d6e5;
+}
+
+/* Estilo para los coches enemigos */
+.enemy{
+    height:100px;
+    border-radius: 10px;
+    width:50px;
+    position:absolute;
+    bottom:120px;
+    background:url(car.png);
+    background-repeat: no-repeat;
+    background-size: 50px 100px;
+}
+
+/* Estilo para la puntuación */
+.score{
+    position:absolute;
+    top:15px;
+    left:40px;
+    background: #10ac84;
+    widows: 300px;
+    height:50px;
+    width:150px;
+    text-align:center;
+    font-size: 1.5em;
+    color:white;
+    font-family: fantasy;
+    box-shadow: 0 5px 5px #777;
+}
+
+/* Estilo para la pantalla de inicio */
+.startScreen{
+    position:absolute;
+    top:50%;
+    left:50%;
+    background: #bf9e31;
+    transform:translate(-50%,-50%);
+    color:white;
+    z-index: 1;
+    text-align:center;
+    border:3px solid #000000;
+    padding:15px;
+    margin:auto;
+    width:50%;
+    cursor: pointer;
+    font-family: carfont;
+    letter-spacing: 5;
+    font-size: 20px;
+    word-spacing: 3;
+    line-height: 30px;
+    text-transform: upper;
+    box-shadow: 0 10px 10px #777;
+}
+
+/* Estilo para el botón de volver al menú */
+.back-to-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background: #ff0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    box-shadow: 4px 4px 0px #000;
+}
+
+/* Estilo para el botón de pausa */
+.pause-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pause-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}

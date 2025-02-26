@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intense Driving</title>
+    <link rel="stylesheet" href=".css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.jpg" alt="Logo">
+        </div>
+        <div class="game-title">
+            Intense Driving
+        </div>
+        <div class="nav-links">
+            <a href="leaderboard.html">Leaderboards</a>
+            <!-- Botón para iniciar la música -->
+            <button id="startMusicButton" onclick="startMusic()">Iniciar Música</button>
+        </div>
+    </nav>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <br><br><br><br>
+   
+    <div class="menu-container">
+        <h1>Selecciona tu configuración</h1>
+        
+        <!-- Selección de nombre -->
+        <div class="nameSelection">
+            <h2>Ingresa tu nombre</h2>
+            <input type="text" id="playerNameInput" placeholder="Escribe tu nombre">
+        </div>
+        <br>
+        <!-- Selección de autos -->
+        <div class="carSelection">
+            <h2>Selecciona tu Auto</h2>
+            <div class="cars">
+                <div class="car-card" onclick="selectCar('auto52.png')">
+                    <img src="auto5.png" alt="Auto 1">
+                    <p>Ferrari F2010</p>
+                </div>
+                <div class="car-card" onclick="selectCar('F1.png')">
+                    <img src="F1.png" alt="Auto 2">
+                    <p>F1 2026</p>
+                </div>
+                <div class="car-card" onclick="selectCar('Auto32.png')">
+                    <img src="Auto3.png" alt="Auto 3">
+                    <p>Chevrolet <br>Corvette C8</p>
+                </div>
+                <div class="car-card" onclick="selectCar('Descapotable.png')">
+                    <img src="Descapotable.png" alt="Auto 4">
+                    <p>McLaren P1</p>
+                </div>
+            </div>
+        </div>
+        <br> <br>
+        <!-- Selección de entorno -->
+        <div class="environmentSelection">
+            <h2>Selecciona tu Entorno</h2>
+            <div class="environment-options">
+                <img src="bosque.jpg" onclick="selectEnvironment('bosque.jpg', event)" alt="Bosque">
+                <img src="Playa.jpeg" onclick="selectEnvironment('playa.jpeg', event)" alt="Playa">
+                <img src="pastizal.jpg" onclick="selectEnvironment('pastizal.jpg', event)" alt="Pastizal">
+                <img src="nieve.jpg" onclick="selectEnvironment('nieve.jpg', event)" alt="Nieve">
+            </div>
+        </div>
+        
+        <!-- Botón para confirmar selección -->
+        <br>
+        <button onclick="redirectToGame()">Jugar</button>
+        <br><br><br>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Síguenos en nuestras redes sociales:</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/pixelforge_o/" target="_blank">Instagram</a>
+            <a href="https://intensedrivinggame.blogspot.com/2025/02/quienes-somos.html" target="_blank">Blog</a>
+            <a href="https://www.facebook.com/people/Pixel-Forge/pfbid0X1fYzJ5DRDR9HB1LPsXzCwtFiVeWMCfWfdGNp51V5Au7MwinpzvmifdCeJ2a1gFYl/" target="_blank">Facebook</a>
+            <a href="mailto:opixelforge@gmail.com">Correo</a>
+        </div>
+    </footer>
+    
+    <!-- Añadir los elementos de audio -->
+    <audio id="music1" src="m1menu.mp3" preload="auto"></audio>
+    <audio id="music2" src="m2menu.mp3" preload="auto"></audio>
+
+    <script>
+        // Redirigir al juego después de confirmar la selección
+        function redirectToGame() {
+            let selectedCar = localStorage.getItem('selectedCar');
+            let selectedBackground = localStorage.getItem('selectedBackground');
+
+            if (!selectedCar || !selectedBackground) {
+                alert("Debes seleccionar un auto y un entorno antes de jugar.");
+                return;
+            }
+            confirmName();
+            window.location.href = "game.html"; // Redirigir a la página del juego
+        }
+        
+        // Función para seleccionar el auto y guardarlo
+        function selectCar(carImage) {
+            console.log("Guardando auto seleccionado:", carImage);
+            localStorage.setItem('selectedCar', carImage);
+
+            // Eliminar la clase 'selected' de todas las tarjetas
+            document.querySelectorAll('.car-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Añadir la clase 'selected' a la tarjeta clicada
+            event.currentTarget.classList.add('selected');
+        }
+
+        // Función para seleccionar el entorno y guardarlo
+        function selectEnvironment(environment, event) {
+            console.log("Guardando seleccionado:", environment);
+            localStorage.setItem('selectedBackground', environment);
+
+            // Eliminar la clase 'selected-environment' de todas las imágenes
+            document.querySelectorAll('.environment-options img').forEach(img => {
+                img.classList.remove('selected-environment');
+            });
+
+            // Añadir la clase 'selected-environment' a la imagen clicada
+            event.currentTarget.classList.add('selected-environment');
+        }
+
+        // Confirmar el nombre del jugador
+        function confirmName() {
+            let playerName = document.getElementById("playerNameInput").value.trim();
+
+            if (playerName === "") {
+                alert("Por favor, ingresa tu nombre");
+                return;
+            }
+
+            localStorage.setItem("playerName", playerName);
+        }
+
+        let currentTrack = 0;
+        const tracks = [
+            document.getElementById('music1'),
+            document.getElementById('music2')
+        ];
+
+        // Iniciar la música
+        function startMusic() {
+            const currentMusic = tracks[currentTrack];
+            currentMusic.play().catch(error => {
+                console.log('Reproducción bloqueada:', error);
+            });
+        }
+
+        // Reproducir o pausar la música
+        function playMusic() {
+            const currentMusic = tracks[currentTrack];
+            if (currentMusic.paused) {
+                currentMusic.play();
+            } else {
+                currentMusic.pause();
+            }
+        }
+
+        // Cambiar de pista cuando termine la actual
+        tracks.forEach((track, index) => {
+            track.addEventListener('ended', () => {
+                currentTrack = (currentTrack + 1) % tracks.length;
+                tracks[currentTrack].play();
+            });
+        });
+    </script>
+<style>
+    /* Estilo general del cuerpo */
+    body {
+        font-family: Cambria Math, 'Press Start 2P', cursive;
+        background-color: #184572;
+        color: white;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    /* Estilo para la barra de navegación */
+    .navbar {
+        width: 100%;
+        background-color: #171381;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px 3px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    /* Estilo para el logo en la barra de navegación */
+    .logo img {
+        height: 55.75px;
+        width: 56.875px;
+    }
+
+    /* Estilo para el título del juego en la barra de navegación */
+    .game-title {
+        font-size: 24px;
+        color: white;
+    }
+
+    /* Estilo para los enlaces de navegación */
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 10px 20px;
+        background-color: #e74c3c;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Estilo para los enlaces de navegación al pasar el ratón */
+    .nav-links a:hover {
+        background-color: #c0392b;
+    }
+
+    /* Estilo para el contenedor principal */
+    .container {
+        margin-top: 300px;
+        background: #171381;
+        padding: 20px;
+        border: 8px solid white;
+        box-shadow: 8px 8px 0px #000;
+        max-width: 600px;
+    }
+
+    /* Estilo para el contenedor del menú */
+    .menu-container {
+        width: 100%;
+    }
+
+    /* Estilo para los encabezados */
+    h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    /* Estilo para las tarjetas */
+    .card {
+        background: #222;
+        padding: 10px;
+        border: 4px solid white;
+        box-shadow: 4px 4px 0px #000;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    /* Estilo para los contenedores de autos */
+    .cars {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    /* Estilo para los párrafos de las tarjetas de autos */
+    .car-card p {
+        color: white;
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+    /* Estilo para las tarjetas de autos al pasar el ratón */
+    .car-card:hover {
+        transform: scale(1.1);
+        background-color: #3a2edf;
+    }
+
+    /* Estilo para las tarjetas de autos */
+    .car-card {
+        background-color: #2737a1;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    /* Estilo para las imágenes */
+    img {
+        width: 80px;
+        height: 100px;
+    }
+
+    /* Estilo para los botones */
+    button {
+        font-family: Cambria Math, 'Press Start 2P', cursive;
+        background: yellow;
+        border: 4px solid white;
+        padding: 10px;
+        cursor: pointer;
+        margin-top: 15px;
+        margin-right: 20px;
+        box-shadow: 4px 4px 0px #000;
+    }
+
+    /* Estilo para las imágenes de las tarjetas de autos */
+    .car-card img {
+        width: 100px;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    /* Estilo para la selección de entorno */
+    .environment-options {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        padding: 10px 0;
+    }
+
+    /* Estilo para las imágenes de la selección de entorno */
+    .environment-options img {
+        width: 120px; /* Tamaño ajustado */
+        height: 120px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Estilo para las imágenes de la selección de entorno al pasar el ratón */
+    .environment-options img:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    /* Estilo para las tarjetas de autos seleccionadas */
+    .car-card.selected {
+        border: 2px solid #00ff00; /* Margen de color verde */
+        margin: 10px; /* Añadir margen */
+    }
+
+    /* Estilo para los entornos seleccionados */
+    .selected-environment {
+        border: 2px solid #00ff00; /* Margen de color verde */
+        margin: 10px; /* Añadir margen */
+    }
+
+    /* Estilo para el input de nombre */
+    .nameSelection input {
+        width: 45%;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #3821ff;
+        border-radius: 5px;
+        margin-top: 10px;
+        box-shadow: 2px 2px 5px rgba(17, 9, 45, 0.1);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Estilo para el input de nombre al enfocarse */
+    .nameSelection input:focus {
+        border-color: #00ff00;
+        box-shadow: 2px 2px 10px rgba(0, 255, 0, 0.5);
+    }
+
+    /* Estilo para el pie de página */
+    .footer {
+        background-color: #171381;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    /* Estilo para los enlaces de redes sociales */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 10px;
+    }
+
+    /* Estilo para los enlaces de redes sociales "Texto"*/
+    .social-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        transition: color 0.3s ease;
+    }
+
+    /* Estilo para los enlaces de redes sociales al pasar el ratón */
+    .social-links a:hover {
+        color: #c0392b;
+    }
+</style>
+    
+</body>
+</html>
